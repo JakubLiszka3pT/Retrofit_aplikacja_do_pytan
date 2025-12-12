@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class Pytanie {
     @SerializedName("tresc") // tego trzeba uzyc jak w jsonie jest podana inna nazwa :D
     private String trescPytania;
+    @SerializedName("opda")
     private String odpa;
+    @SerializedName("opdb")
     private String odpb;
     private String odpc;
     private int poprawna;
