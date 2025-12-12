@@ -1,5 +1,6 @@
 package com.example.wprowadzenieretrofit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton radioButton3;
 
     Button  buttonDalej;
+    Button  buttonPodzielsie;
     int aktualnepytanie = 0;
     int sumapunkty = 0;
     @Override
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
         buttonDalej = findViewById(R.id.button_dalej);
+        buttonPodzielsie = findViewById(R.id.button_podzielsie);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://my-json-server.typicode.com/JakubLiszka3pT/Retrofit_pytania/") // link musi zawierać ostatni /
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -92,7 +95,19 @@ public class MainActivity extends AppCompatActivity {
                     radioGroup.setVisibility(View.INVISIBLE);
                     textViewPytanie.setText("Koniec testu" + sumapunkty);
                     buttonDalej.setVisibility(View.INVISIBLE);
+                    buttonPodzielsie.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+        buttonPodzielsie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentWyslij = new Intent();
+                intentWyslij.setAction(Intent.ACTION_SEND);
+                intentWyslij.putExtra(Intent.EXTRA_TEXT, "Otrzymano " + sumapunkty+" punktów");
+                intentWyslij.setType("text/plain");
+                Intent intentUdostepniona = Intent.createChooser(intentWyslij, "Punkty");
+                startActivity(intentUdostepniona);
             }
         });
 
